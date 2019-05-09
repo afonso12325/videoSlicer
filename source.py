@@ -32,22 +32,24 @@ if __name__ == "__main__":
     frame_count = 0
     while(True):
         ret, frame = cap.read()
-        frame_count += 1
-        print(frame_count)
-        print(frame.shape)
-        sectors = split(frame, 2)
-        sectors = [apply_single_transform(sector, transform) for sector,transform in zip(sectors,['const', 'canny'])]
-        for i, sector in enumerate(sectors):
-            print(i)
-            cv2.imshow('sector {}'.format(i), sector)
-        
-        # for parameter in parameters:
-        #     if frame_count>=parameter.duration[0] and frame_count<=parameter.duration[1]:
-        #     frame = apply_transforms(frame, keep_orig = parameter.keep_orig, transforms = parameter.transforms)
-                
-
-
         if ret:
+            
+            frame_count += 1
+            print(frame_count)
+            print(frame.shape)
+            sectors = split(frame, 3)
+            #sectors = [apply_single_transform(sector, transform) for sector,transform in zip(sectors,['const', 'canny'])]
+            for i, sector in enumerate(sectors):
+                print(i)
+                cv2.imshow('sector {}'.format(i), sector)
+            
+            # for parameter in parameters:
+            #     if frame_count>=parameter.duration[0] and frame_count<=parameter.duration[1]:
+            #     frame = apply_transforms(frame, keep_orig = parameter.keep_orig, transforms = parameter.transforms)
+                    
+
+
+        
             cv2.imshow('frame', frame)
         else:
             break
