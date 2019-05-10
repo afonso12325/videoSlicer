@@ -32,13 +32,19 @@ def apply_transforms(frame, keep_orig, transforms):
     return frame_transformed
 def pre_prepare_video(video_path):
     os.system('ffmpeg -i '+'videos/test.mp4' + ' -vn ' + 'out/test.mp3')
+def check_weights():
+    if not os.path.isfile('kerasyolo3/model_data/yolo_weights.h5'):
+        print("Weights not downloaded. Downloading now!")
 
-
+        os.system('cd kerasyolo3/ && wget https://pjreddie.com/media/files/yolov3.weights && python convert.py yolov3.cfg yolov3.weights model_data/yolo.h5')
+    else:
+        print("Weights alerady downloaded.")
 if __name__ == "__main__":
     parameters = [
         {'duration':(1, 400), 'keep_orig':True, 'transforms':['b&w', 'canny']},
         {'duration':(700, 1200), 'keep_orig':False, 'transforms':['canny', 'const']},
     ]
+    check_weights()
     pre_prepare_video('videos/test.mp4')
     cap = cv2.VideoCapture('videos/test.mp4')
     frame_count = 0

@@ -1,8 +1,4 @@
-import subprocess
-import re
+from kerasyolo3.yolo import YOLO
+import cv2
 
-import os
-a  = os.popen('avprobe videos/test.mp4').readlines()
-output = '\n'.join(a)
-result = re.search('(\d{3,4})x(\d{3,4})', output)
-print(len(output))
+yolo_model = YOLO()
