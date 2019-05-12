@@ -1,5 +1,5 @@
 # videoSlicer
-Simple implementation of video editing in opencv using some CV and ML techniques to demonstrate what I can do with these tools.
+Simple implementation of video editing in python using some CV and ML techniques to demonstrate what I can do with these tools.
 
 videoSlicer uses OpenCV, ffmpeg to make what it does.
 
