@@ -4,7 +4,7 @@ from PIL import Image
 import numpy as np
 
 yolo_model = YOLO()
-img1 = cv2.imread("videos/mehdi.png")
+img1 = cv2.imread("videos/im100.jpg")
 img2 = Image.fromarray(img1)
 img2 = yolo_model.detect_image(img2)
 img2 = np.asarray(img2)

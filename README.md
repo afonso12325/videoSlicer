@@ -14,6 +14,8 @@ STEPS:
 ![Alt text](images/transforming_sectors.png?raw=true "split")
 - Apply YOLO (you only look once) object detection
 ![Alt text](images/yolo.png?raw=true "split")
+- Get YOLO on video
+![Alt text](images/yolo_video.png?raw=true "split")
 - Join sectors
 ![Alt text](images/join.png?raw=true "split")
 - Join audio with ffmpeg
