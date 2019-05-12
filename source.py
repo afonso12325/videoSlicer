@@ -44,7 +44,7 @@ def apply_transforms(frame, keep_orig, transforms, objects):
 def pre_prepare_video(video_path):
     os.system('ffmpeg -i '+'videos/test.mp4' + ' -vn ' + 'out/test.mp3')
 def check_weights():
-    if not os.path.isfile('kerasyolo3/model_data/yolo_weights.h5'):
+    if not os.path.isfile('kerasyolo3/model_data/yolo.h5'):
         print("Weights not downloaded. Downloading now!")
 
         os.system('cd kerasyolo3/ && wget https://pjreddie.com/media/files/yolov3.weights && python convert.py yolov3.cfg yolov3.weights model_data/yolo.h5')

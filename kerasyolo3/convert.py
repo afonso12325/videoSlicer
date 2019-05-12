@@ -42,18 +42,33 @@ def unique_config_sections(config_file):
 
     Adds unique suffixes to config sections for compability with configparser.
     """
-    section_counters = defaultdict(int)
-    output_stream = StringIO()
-    with open(config_file) as fin:
-        for line in fin:
-            if line.startswith('['):
-                section = line.strip().strip('[]')
-                _section = section + '_' + str(section_counters[section])
-                section_counters[section] += 1
-                line = line.replace(section, _section)
-            output_stream.write(line)
-    output_stream.seek(0)
-    return output_stream
+
+    try:
+        section_counters = defaultdict(int)
+        output_stream = StringIO()
+        with open(config_file) as fin:
+            for line in fin:
+                if line.startswith('['):
+                    section = line.strip().strip('[]')
+                    _section = section + '_' + str(section_counters[section])
+                    section_counters[section] += 1
+                    line = line.replace(section, _section)
+                output_stream.write(line)
+        output_stream.seek(0)
+        return output_stream
+    except:
+        section_counters = defaultdict(int)
+        output_stream = BytesIO()
+        with open(config_file) as fin:
+            for line in fin:
+                if line.startswith('['):
+                    section = line.strip().strip('[]')
+                    _section = section + '_' + str(section_counters[section])
+                    section_counters[section] += 1
+                    line = line.replace(section, _section)
+                output_stream.write(line)
+        output_stream.seek(0)
+        return output_stream        
 
 # %%
 def _main(args):
