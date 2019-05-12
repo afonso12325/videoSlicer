@@ -56,12 +56,13 @@ if __name__ == "__main__":
         {'duration':(401, 550), 'keep_orig':False, 'transforms':['yolo'], 'transform_objects':{}},
         {'duration':(700, 1200), 'keep_orig':False, 'transforms':['canny', 'const'], 'transform_objects':{}},
     ]
+    check_weights()
     model = YOLO()
     for parameter in parameters:
         if 'yolo' in parameter['transforms']:
             foo = {"yolo":model}
             parameter['transform_objects'].update(foo)
-    #check_weights()
+
     pre_prepare_video('videos/test.mp4')
     cap = cv2.VideoCapture('videos/test.mp4')
     frame_count = 0
