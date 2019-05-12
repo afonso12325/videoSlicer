@@ -2,6 +2,9 @@
 kerasyolo3/model_data/yolo.h5
 kerasyolo3/yolov3.weights
 
+#out
+out/*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
