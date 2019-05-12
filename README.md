@@ -3,6 +3,8 @@ Simple implementation of video editing in opencv using some CV and ML techniques
 
 videoSlicer uses OpenCV, ffmpeg to make what it does.
 
+Special thanks to the authors of [keras-yolo3](https://github.com/qqwweee/keras-yolo3)
+
 STEPS:
 - Get video information
 - Get audio from video with ffmpeg
@@ -10,6 +12,8 @@ STEPS:
 ![Alt text](images/splitting_in_sectors.png?raw=true "split")
 - Apply basic transformations to sectors
 ![Alt text](images/transforming_sectors.png?raw=true "split")
+- Apply YOLO (you only look once) object detection
+![Alt text](images/yolo.png?raw=true "split")
 - Join sectors
 ![Alt text](images/join.png?raw=true "split")
 - Join audio with ffmpeg
