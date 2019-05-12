@@ -1,3 +1,7 @@
+#weights
+kerasyolo3/model_data/yolo.h5
+kerasyolo3/yolov3.weights
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
