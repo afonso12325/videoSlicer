@@ -6,7 +6,8 @@ Reads Darknet config and weights and creates Keras model with TF backend.
 
 import argparse
 import configparser
-from io import BytesIO as StringIO
+from io import StringIO
+from io import BytesIO 
 import os
 from collections import defaultdict
 
