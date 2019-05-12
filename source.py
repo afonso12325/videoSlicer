@@ -52,9 +52,9 @@ def check_weights():
         print("Weights alerady downloaded.")
 if __name__ == "__main__":
     parameters = [
-        {'duration':(1, 400), 'keep_orig':True, 'transforms':['b&w', 'canny'], 'transform_objects':{}},
-        {'duration':(401, 550), 'keep_orig':False, 'transforms':['yolo'], 'transform_objects':{}},
-        {'duration':(700, 1200), 'keep_orig':False, 'transforms':['canny', 'const'], 'transform_objects':{}},
+        #{'duration':(1, 400), 'keep_orig':True, 'transforms':['b&w', 'canny'], 'transform_objects':{}},
+        {'duration':(1, 7000), 'keep_orig':False, 'transforms':['yolo'], 'transform_objects':{}},
+        #{'duration':(700, 1200), 'keep_orig':False, 'transforms':['canny', 'const'], 'transform_objects':{}},
     ]
     check_weights()
     model = YOLO()
