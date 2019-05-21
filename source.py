@@ -102,6 +102,7 @@ def apply_single_transform(sector,transform, objects):
         max_v=np.max(image) 
         div=max_v/255.0 #calculate the normalize divisor
         image=np.uint8(image/div)
+        cv2.imwrite("out700.png", cv2.resize(image, (prev_shape[1], prev_shape[0])))
         return cv2.resize(image, (prev_shape[1], prev_shape[0]))
 
         
