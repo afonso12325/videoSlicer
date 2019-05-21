@@ -20,7 +20,7 @@ style_images = [cv2.imread('videos/1-style.jpg'), ]
 print(content_image)
 output_path = 'out1.png'
 initial = content_image
-initial_noiseblend = None
+initial_noiseblend = 0
 preserve_colors = None
 iterations = ITERATIONS
 content_weight = CONTENT_WEIGHT
