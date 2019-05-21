@@ -147,9 +147,9 @@ if __name__ == "__main__":
     # model = YOLO()
     parameters = [
         {'duration':(1800, 1950), 'keep_orig':True, 'transforms':['b&w', 'canny'], 'transform_objects':{}},
-        # {'duration':(1985, 2200), 'keep_orig':False, 'transforms':['yolo'], 'transform_objects':{"yolo": model}},
-        # {'duration':(2264, 2400), 'keep_orig':False, 'transforms':['nst'], 'transform_objects':{"dur": 0}},
-        # {'duration':(2527, 2675), 'keep_orig':False, 'transforms':['nst'], 'transform_objects':{"dur": 0}},
+        {'duration':(1985, 2200), 'keep_orig':False, 'transforms':['yolo'], 'transform_objects':{"yolo": model}},
+        {'duration':(2264, 2400), 'keep_orig':False, 'transforms':['nst'], 'transform_objects':{"dur": 0}},
+        {'duration':(2527, 2675), 'keep_orig':False, 'transforms':['nst'], 'transform_objects':{"dur": 0}},
         #{'duration':(700, 1200), 'keep_orig':False, 'transforms':['canny', 'const'], 'transform_objects':{}},
     ]
     
