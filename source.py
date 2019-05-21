@@ -115,8 +115,8 @@ def apply_single_transform(sector,transform, objects):
             dur = objects['dur']
             lu_rel = np.array(left_upper)*dur
             rb_rel = 1 - np.array(right_bottom)*dur
-            pixels_lu = (lu_rel*np.array(sector.shape[0:2:-1])).astype(np.uint8)
-            pixels_rb = (lu_rel*np.array(sector.shape[0:2:-1])).astype(np.uint8)
+            pixels_lu = (lu_rel*np.array([sector.shape[1], sector.shape[0]])).astype(np.uint8)
+            pixels_rb = (lu_rel*np.array([sector.shape[1], sector.shape[0]])).astype(np.uint8)
             sector[pixels_lu[1]:pixels_rb[1],pixels_lu[0]:pixels_rb[0], :] = cv2.resize(nst_frame, (pixels_rb[0]-pixels_lu[0], pixels_rb[1]-pixels_lu[1]))
 
         
