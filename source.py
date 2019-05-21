@@ -45,11 +45,12 @@ def apply_single_transform(sector,transform, objects):
         BETA2 = 0.999
         EPSILON = 1e-08
         STYLE_SCALE = 1.0
-        ITERATIONS = 500
+        ITERATIONS = 20
         VGG_PATH = 'imagenet-vgg-verydeep-19.mat'
         POOLING = 'max'
-
-        content_image = sector
+        resize_fac = 0.5
+        prev_shape = sector.shape[:2]
+        content_image = cv2.resize(sector,(int(sector.shape[1]*resize_fac),int(sector.shape[0]*resize_fac)))
         style_images = [cv2.imread('videos/1-style.jpg'), ]
         initial = content_image
         initial_noiseblend = 0
@@ -96,7 +97,7 @@ def apply_single_transform(sector,transform, objects):
         max_v=np.max(image) 
         div=max_v/255.0 #calculate the normalize divisor
         image=np.uint8(image/div)
-        return image
+        return cv2.reshape(image, (prev_shape[1], prev_shape[0])
 
         
 def apply_transforms(frame, keep_orig, transforms, objects):
