@@ -186,7 +186,7 @@ def stylize(network, initial, initial_noiseblend, content, styles, preserve_colo
                     #     hms(elapsed),
                     #     hms(remaining)
                     # ))
-                else:
+                # else:
                     # print('Iteration %4d/%4d' % (i + 1, iterations))
                 train_step.run()
 
