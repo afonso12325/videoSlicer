@@ -94,7 +94,7 @@ def apply_single_transform(sector,transform, objects):
             pass
         min_v = np.min(image)
         image = image-min_v #to have only positive values
-        max_v=np.max(sobelx_64f) 
+        max_v=np.max(image) 
         div=max_v/255.0 #calculate the normalize divisor
         image=np.uint8(image/div)
         return image
