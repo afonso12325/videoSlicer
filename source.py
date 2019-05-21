@@ -68,7 +68,6 @@ def apply_single_transform(sector,transform, objects):
         pooling = POOLING
         print_iterations= None
         checkpoint_iterations = None
-        print(sector)
         for iteration, image, loss_vals in stylize(
                                             network=VGG_PATH,
                                             initial=initial,
@@ -146,6 +145,8 @@ if __name__ == "__main__":
         if ret:
             
             frame_count += 1
+            if(frame_count == 1000):
+                break
             #if(frame_count%100 == 0):
             print(frame_count)
             # print(frame.shape)
