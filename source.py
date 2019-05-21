@@ -5,6 +5,7 @@ from PIL import Image
 import numpy as np
 from kerasyolo3.yolo import YOLO
 from neuralstyle.stylize import stylize
+from skimage import img_as_ubyte
 def split(img, n):
     sectors = []
     width = img.shape[1]//n
@@ -91,8 +92,8 @@ def apply_single_transform(sector,transform, objects):
                                             checkpoint_iterations=checkpoint_iterations,
         ):
             pass
-        print(image)
-        return image
+        print(img_as_ubyte(image))
+        return img_as_ubyte(image)
 
         
 def apply_transforms(frame, keep_orig, transforms, objects):
