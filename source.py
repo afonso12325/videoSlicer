@@ -5,7 +5,6 @@ from PIL import Image
 import numpy as np
 from kerasyolo3.yolo import YOLO
 from neuralstyle.stylize import stylize
-from skimage import img_as_ubyte
 import tensorflow as tf
 
 nst_flag = True
@@ -43,7 +42,7 @@ def apply_single_transform(sector,transform, objects):
         global nst_frame
 
         left_upper = (0.1,0.1)
-        right_bottom = (0.4,0.4)
+        right_bottom = (0.5,0.5)
         if nst_flag:
             # default arguments
             CONTENT_WEIGHT = 5e0
@@ -113,12 +112,17 @@ def apply_single_transform(sector,transform, objects):
             return cv2.resize(image, (prev_shape[1], prev_shape[0]))
         else:
             dur = objects['dur']
+            if dur>=1.0:
+                dur = 1.0
             lu_rel = np.array(left_upper)*dur
             rb_rel = 1 - np.array(right_bottom)*dur
-            pixels_lu = (lu_rel*np.array([sector.shape[1], sector.shape[0]])).astype(np.uint8)
-            pixels_rb = (lu_rel*np.array([sector.shape[1], sector.shape[0]])).astype(np.uint8)
+            pixels_lu = (lu_rel*np.array([sector.shape[1], sector.shape[0]])).astype(np.uint32)
+            pixels_rb = (rb_rel*np.array([sector.shape[1], sector.shape[0]])).astype(np.uint32)
+            print(dur)
+            print(lu_rel, rb_rel)
+            print(pixels_lu, pixels_rb)
             sector[pixels_lu[1]:pixels_rb[1],pixels_lu[0]:pixels_rb[0], :] = cv2.resize(nst_frame, (pixels_rb[0]-pixels_lu[0], pixels_rb[1]-pixels_lu[1]))
-
+            return sector
         
 def apply_transforms(frame, keep_orig, transforms, objects):
     if keep_orig:
@@ -141,7 +145,9 @@ def check_weights():
 if __name__ == "__main__":
     parameters = [
         #{'duration':(1, 400), 'keep_orig':True, 'transforms':['b&w', 'canny'], 'transform_objects':{}},
-        {'duration':(300, 800), 'keep_orig':False, 'transforms':['nst'], 'transform_objects':{"dur": 0}},
+        {'duration':(30, 500), 'keep_orig':False, 'transforms':['nst'], 'transform_objects':{"dur": 0}},
+        {'duration':(800, 1000), 'keep_orig':False, 'transforms':['nst'], 'transform_objects':{"dur": 0}},
+        {'duration':(1200, 1500), 'keep_orig':False, 'transforms':['nst'], 'transform_objects':{"dur": 0}},
         #{'duration':(700, 1200), 'keep_orig':False, 'transforms':['canny', 'const'], 'transform_objects':{}},
     ]
     check_weights()
@@ -161,13 +167,10 @@ if __name__ == "__main__":
     print('width = {} height = {} fps = {}'.format(width, height, fps))
     out = cv2.VideoWriter('out/output.avi',fourcc, 23.98, (1280,720))
     while(True):
-        os.system('cls' if os.name=='nt' else 'clear')
         ret, frame = cap.read()
         if ret:
             
             frame_count += 1
-            if(frame_count == 1000):
-                break
             #if(frame_count%100 == 0):
             print(frame_count)
             # print(frame.shape)
@@ -177,12 +180,13 @@ if __name__ == "__main__":
             #     print(i)
             #     cv2.imshow('sector {}'.format(i), sector)
             # cv2.imshow('join', join(sectors))
-
+            cv2.imwrite("videos/framoso.png", frame)
             for parameter in parameters:
                 if frame_count>=parameter['duration'][0] and frame_count<=parameter['duration'][1]:
-                    parameter['transform_objects']["dur"] = float(frame_count - parameter['duration'][0])/float(frame_count<=parameter['duration'][1] -frame_count>=parameter['duration'][0])
+                    parameter['transform_objects']["dur"] += 0.1
                     frame = apply_transforms(frame, keep_orig = parameter['keep_orig'], transforms = parameter['transforms'], objects = parameter['transform_objects'])
-                    
+                if frame_count == parameter['duration'][1]:
+                    nst_flag = True
             
             out.write(frame)
         
