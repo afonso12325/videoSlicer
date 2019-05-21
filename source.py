@@ -134,7 +134,7 @@ def apply_transforms(frame, keep_orig, transforms, objects):
     frame_transformed = join(sectors_transformed)
     return frame_transformed
 def pre_prepare_video(video_path):
-    os.system('ffmpeg -i '+'videos/test.mp4' + ' -vn ' + 'out/test.mp3')
+    os.system('ffmpeg -i '+'videos/afonso.mp4' + ' -vn ' + 'out/test.mp3')
 def check_weights():
     if not os.path.isfile('kerasyolo3/model_data/yolo.h5'):
         print("Weights not downloaded. Downloading now!")
@@ -143,22 +143,24 @@ def check_weights():
     else:
         print("Weights alerady downloaded.")
 if __name__ == "__main__":
-    parameters = [
-        #{'duration':(1, 400), 'keep_orig':True, 'transforms':['b&w', 'canny'], 'transform_objects':{}},
-        {'duration':(30, 500), 'keep_orig':False, 'transforms':['nst'], 'transform_objects':{"dur": 0}},
-        {'duration':(800, 1000), 'keep_orig':False, 'transforms':['nst'], 'transform_objects':{"dur": 0}},
-        {'duration':(1200, 1500), 'keep_orig':False, 'transforms':['nst'], 'transform_objects':{"dur": 0}},
-        #{'duration':(700, 1200), 'keep_orig':False, 'transforms':['canny', 'const'], 'transform_objects':{}},
-    ]
     check_weights()
     model = YOLO()
+    parameters = [
+        {'duration':(1800, 1950), 'keep_orig':True, 'transforms':['b&w', 'canny'], 'transform_objects':{}},
+        {'duration':(1985, 2200), 'keep_orig':False, 'transforms':['yolo'], 'transform_objects':{"yolo": model}},
+        {'duration':(2264, 2400), 'keep_orig':False, 'transforms':['nst'], 'transform_objects':{"dur": 0}},
+        {'duration':(2527, 2675), 'keep_orig':False, 'transforms':['nst'], 'transform_objects':{"dur": 0}},
+        #{'duration':(700, 1200), 'keep_orig':False, 'transforms':['canny', 'const'], 'transform_objects':{}},
+    ]
+    
+    
     for parameter in parameters:
         if 'yolo' in parameter['transforms']:
             foo = {"yolo":model}
             parameter['transform_objects'].update(foo)
 
-    pre_prepare_video('videos/test.mp4')
-    cap = cv2.VideoCapture('videos/test.mp4')
+    pre_prepare_video('videos/afonso.mp4')
+    cap = cv2.VideoCapture('videos/afonso.mp4')
     frame_count = 0
     fourcc = cv2.VideoWriter_fourcc(*'XVID')
     width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)   # float
@@ -182,12 +184,13 @@ if __name__ == "__main__":
             # cv2.imshow('join', join(sectors))
             cv2.imwrite("videos/framoso.png", frame)
             for parameter in parameters:
-                if frame_count>=parameter['duration'][0] and frame_count<=parameter['duration'][1]:
-                    parameter['transform_objects']["dur"] += 0.1
-                    frame = apply_transforms(frame, keep_orig = parameter['keep_orig'], transforms = parameter['transforms'], objects = parameter['transform_objects'])
-                if frame_count == parameter['duration'][1]:
-                    nst_flag = True
-            
+                if parameter[transforms] == ['nst']
+                    if frame_count>=parameter['duration'][0] and frame_count<=parameter['duration'][1]:
+                        parameter['transform_objects']["dur"] += 0.1
+                        frame = apply_transforms(frame, keep_orig = parameter['keep_orig'], transforms = parameter['transforms'], objects = parameter['transform_objects'])
+                    if frame_count == parameter['duration'][1]:
+                        nst_flag = True
+                
             out.write(frame)
         
             # cv2.imshow('frame', frame)
