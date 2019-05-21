@@ -44,7 +44,7 @@ def apply_single_transform(sector,transform, objects):
         BETA2 = 0.999
         EPSILON = 1e-08
         STYLE_SCALE = 1.0
-        ITERATIONS = 200
+        ITERATIONS = 20
         VGG_PATH = 'imagenet-vgg-verydeep-19.mat'
         POOLING = 'max'
 
@@ -90,6 +90,7 @@ def apply_single_transform(sector,transform, objects):
                                             checkpoint_iterations=checkpoint_iterations,
         ):
             pass
+        print(image.shape)
         return image
 
         
@@ -114,7 +115,7 @@ def check_weights():
 if __name__ == "__main__":
     parameters = [
         #{'duration':(1, 400), 'keep_orig':True, 'transforms':['b&w', 'canny'], 'transform_objects':{}},
-        {'duration':(6, 9), 'keep_orig':False, 'transforms':['nst'], 'transform_objects':{}},
+        {'duration':(90, 100), 'keep_orig':False, 'transforms':['nst'], 'transform_objects':{}},
         #{'duration':(700, 1200), 'keep_orig':False, 'transforms':['canny', 'const'], 'transform_objects':{}},
     ]
     check_weights()
