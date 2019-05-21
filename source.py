@@ -92,8 +92,12 @@ def apply_single_transform(sector,transform, objects):
                                             checkpoint_iterations=checkpoint_iterations,
         ):
             pass
-        cv2.imwrite("out49.png", image)
-        return img_as_ubyte(image)
+        min_v = np.min(image)
+        image = image-min_v #to have only positive values
+        max_v=np.max(sobelx_64f) 
+        div=max_v/255.0 #calculate the normalize divisor
+        image=np.uint8(image/div)
+        return image
 
         
 def apply_transforms(frame, keep_orig, transforms, objects):
