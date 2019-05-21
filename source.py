@@ -184,12 +184,11 @@ if __name__ == "__main__":
             # cv2.imshow('join', join(sectors))
             cv2.imwrite("videos/framoso.png", frame)
             for parameter in parameters:
-                if parameter['transforms'] == ['nst']:
-                    if frame_count>=parameter['duration'][0] and frame_count<=parameter['duration'][1]:
-                        parameter['transform_objects']["dur"] += 0.1
-                    frame = apply_transforms(frame, keep_orig = parameter['keep_orig'], transforms = parameter['transforms'], objects = parameter['transform_objects'])   
-                    if frame_count == parameter['duration'][1]:
-                        nst_flag = True
+                if frame_count>=parameter['duration'][0] and frame_count<=parameter['duration'][1] and parameter['transforms'] == ['nst']:
+                    parameter['transform_objects']["dur"] += 0.1
+                frame = apply_transforms(frame, keep_orig = parameter['keep_orig'], transforms = parameter['transforms'], objects = parameter['transform_objects'])   
+                if frame_count == parameter['duration'][1] and parameter['transforms'] == ['nst']:
+                    nst_flag = True
                 
             out.write(frame)
         
