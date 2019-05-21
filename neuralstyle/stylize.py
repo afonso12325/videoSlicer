@@ -32,7 +32,7 @@ def print_progress(loss_vals):
 
 def stylize(network, initial, initial_noiseblend, content, styles, preserve_colors, iterations,
         content_weight, content_weight_blend, style_weight, style_layer_weight_exp, style_blend_weights, tv_weight,
-        learning_rate, beta1, beta2, epsilon, pooling,
+        learning_rate, beta1, beta2, epsilon, pooling,sess, 
         print_iterations=None, checkpoint_iterations=None):
     """
     Stylize images.
@@ -167,7 +167,7 @@ def stylize(network, initial, initial_noiseblend, content, styles, preserve_colo
         # optimization
         best_loss = float('inf')
         best = None
-        with tf.Session() as sess:
+        with sess:
             sess.run(tf.global_variables_initializer())
             # print('Optimization started...')
             if (print_iterations and print_iterations != 0):

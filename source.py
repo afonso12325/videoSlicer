@@ -6,6 +6,10 @@ import numpy as np
 from kerasyolo3.yolo import YOLO
 from neuralstyle.stylize import stylize
 from skimage import img_as_ubyte
+import tensorflow as tf
+
+sess = tf.Session()
+
 def split(img, n):
     sectors = []
     width = img.shape[1]//n
@@ -35,6 +39,7 @@ def apply_single_transform(sector,transform, objects):
         return np.asarray(img2)
     if transform == 'nst':
         # default arguments
+        global sess
         CONTENT_WEIGHT = 5e0
         CONTENT_WEIGHT_BLEND = 1
         STYLE_WEIGHT = 5e2
@@ -71,6 +76,7 @@ def apply_single_transform(sector,transform, objects):
         checkpoint_iterations = None
         for iteration, image, loss_vals in stylize(
                                             network=VGG_PATH,
+                                            sess = sess,
                                             initial=initial,
                                             initial_noiseblend=initial_noiseblend,
                                             content=content_image,
