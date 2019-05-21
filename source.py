@@ -4,6 +4,7 @@ import os
 from PIL import Image
 import numpy as np
 from kerasyolo3.yolo import YOLO
+from neuralstyle.stylize import stylize
 def split(img, n):
     sectors = []
     width = img.shape[1]//n
@@ -31,6 +32,66 @@ def apply_single_transform(sector,transform, objects):
         img2 = Image.fromarray(sector)
         img2 = model.detect_image(img2)
         return np.asarray(img2)
+    if transform == 'nst':
+        # default arguments
+        CONTENT_WEIGHT = 5e0
+        CONTENT_WEIGHT_BLEND = 1
+        STYLE_WEIGHT = 5e2
+        TV_WEIGHT = 1e2
+        STYLE_LAYER_WEIGHT_EXP = 1
+        LEARNING_RATE = 1e1
+        BETA1 = 0.9
+        BETA2 = 0.999
+        EPSILON = 1e-08
+        STYLE_SCALE = 1.0
+        ITERATIONS = 200
+        VGG_PATH = 'imagenet-vgg-verydeep-19.mat'
+        POOLING = 'max'
+
+        content_image = sector
+        style_images = [cv2.imread('videos/1-style.jpg'), ]
+        initial = content_image
+        initial_noiseblend = 0
+        preserve_colors = None
+        iterations = ITERATIONS
+        content_weight = CONTENT_WEIGHT
+        content_weight_blend = CONTENT_WEIGHT_BLEND
+        style_weight = STYLE_WEIGHT
+        style_layer_weight_exp = STYLE_LAYER_WEIGHT_EXP
+        style_blend_weights = [1,]
+        tv_weight = TV_WEIGHT
+        learning_rate = LEARNING_RATE
+        beta1 = BETA1
+        beta2 = BETA2
+        epsilon = EPSILON
+        pooling = POOLING
+        print_iterations= None
+        checkpoint_iterations = None
+        for iteration, image, loss_vals in stylize(
+                                            network=VGG_PATH,
+                                            initial=initial,
+                                            initial_noiseblend=initial_noiseblend,
+                                            content=content_image,
+                                            styles=style_images,
+                                            preserve_colors=preserve_colors,
+                                            iterations=iterations,
+                                            content_weight=content_weight,
+                                            content_weight_blend=content_weight_blend,
+                                            style_weight=style_weight,
+                                            style_layer_weight_exp=style_layer_weight_exp,
+                                            style_blend_weights=style_blend_weights,
+                                            tv_weight=tv_weight,
+                                            learning_rate=learning_rate,
+                                            beta1=beta1,
+                                            beta2=beta2,
+                                            epsilon=epsilon,
+                                            pooling=pooling,
+                                            print_iterations=print_iterations,
+                                            checkpoint_iterations=checkpoint_iterations,
+        ):
+            pass
+        return image
+
         
 def apply_transforms(frame, keep_orig, transforms, objects):
     if keep_orig:
@@ -53,7 +114,7 @@ def check_weights():
 if __name__ == "__main__":
     parameters = [
         #{'duration':(1, 400), 'keep_orig':True, 'transforms':['b&w', 'canny'], 'transform_objects':{}},
-        {'duration':(1, 7000), 'keep_orig':False, 'transforms':['yolo'], 'transform_objects':{}},
+        {'duration':(6, 9), 'keep_orig':False, 'transforms':['nst'], 'transform_objects':{}},
         #{'duration':(700, 1200), 'keep_orig':False, 'transforms':['canny', 'const'], 'transform_objects':{}},
     ]
     check_weights()
