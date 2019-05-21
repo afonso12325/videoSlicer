@@ -143,13 +143,13 @@ def check_weights():
     else:
         print("Weights alerady downloaded.")
 if __name__ == "__main__":
-    check_weights()
-    model = YOLO()
+    # check_weights()
+    # model = YOLO()
     parameters = [
         {'duration':(1800, 1950), 'keep_orig':True, 'transforms':['b&w', 'canny'], 'transform_objects':{}},
-        {'duration':(1985, 2200), 'keep_orig':False, 'transforms':['yolo'], 'transform_objects':{"yolo": model}},
-        {'duration':(2264, 2400), 'keep_orig':False, 'transforms':['nst'], 'transform_objects':{"dur": 0}},
-        {'duration':(2527, 2675), 'keep_orig':False, 'transforms':['nst'], 'transform_objects':{"dur": 0}},
+        # {'duration':(1985, 2200), 'keep_orig':False, 'transforms':['yolo'], 'transform_objects':{"yolo": model}},
+        # {'duration':(2264, 2400), 'keep_orig':False, 'transforms':['nst'], 'transform_objects':{"dur": 0}},
+        # {'duration':(2527, 2675), 'keep_orig':False, 'transforms':['nst'], 'transform_objects':{"dur": 0}},
         #{'duration':(700, 1200), 'keep_orig':False, 'transforms':['canny', 'const'], 'transform_objects':{}},
     ]
     
@@ -187,7 +187,7 @@ if __name__ == "__main__":
                 if parameter['transforms'] == ['nst']:
                     if frame_count>=parameter['duration'][0] and frame_count<=parameter['duration'][1]:
                         parameter['transform_objects']["dur"] += 0.1
-                        frame = apply_transforms(frame, keep_orig = parameter['keep_orig'], transforms = parameter['transforms'], objects = parameter['transform_objects'])
+                    frame = apply_transforms(frame, keep_orig = parameter['keep_orig'], transforms = parameter['transforms'], objects = parameter['transform_objects'])   
                     if frame_count == parameter['duration'][1]:
                         nst_flag = True
                 
