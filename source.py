@@ -186,7 +186,8 @@ if __name__ == "__main__":
             for parameter in parameters:
                 if frame_count>=parameter['duration'][0] and frame_count<=parameter['duration'][1] and parameter['transforms'] == ['nst']:
                     parameter['transform_objects']["dur"] += 0.1
-                frame = apply_transforms(frame, keep_orig = parameter['keep_orig'], transforms = parameter['transforms'], objects = parameter['transform_objects'])   
+                if frame_count>=parameter['duration'][0] and frame_count<=parameter['duration'][1]:
+                    frame = apply_transforms(frame, keep_orig = parameter['keep_orig'], transforms = parameter['transforms'], objects = parameter['transform_objects'])   
                 if frame_count == parameter['duration'][1] and parameter['transforms'] == ['nst']:
                     nst_flag = True
                 
