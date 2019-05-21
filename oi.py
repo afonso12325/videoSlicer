@@ -17,7 +17,7 @@ POOLING = 'max'
 
 content_image = cv2.imread('videos/mehdi.png')
 style_images = [cv2.imread('neuralstyle/examples/1-style.jpg'), ]
-print(style_images)
+print(content_image)
 output_path = 'out1.png'
 initial = content_image
 initial_noiseblend = None
