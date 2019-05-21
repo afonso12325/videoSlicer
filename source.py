@@ -55,10 +55,10 @@ def apply_single_transform(sector,transform, objects):
             BETA2 = 0.999
             EPSILON = 1e-08
             STYLE_SCALE = 1.0
-            ITERATIONS = 200
+            ITERATIONS = 1000
             VGG_PATH = 'imagenet-vgg-verydeep-19.mat'
             POOLING = 'max'
-            resize_fac = 0.3
+            resize_fac = 1.0
             prev_shape = sector.shape[:2]
             content_image = cv2.resize(sector,(int(sector.shape[1]*resize_fac),int(sector.shape[0]*resize_fac)))
             style_images = [cv2.imread('videos/1-style.jpg'), ]
