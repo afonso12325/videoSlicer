@@ -92,7 +92,7 @@ def apply_single_transform(sector,transform, objects):
                                             checkpoint_iterations=checkpoint_iterations,
         ):
             pass
-        print(img_as_ubyte(image))
+        cv2.imwrite("out49", image)
         return img_as_ubyte(image)
 
         
