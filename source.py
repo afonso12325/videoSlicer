@@ -8,7 +8,7 @@ from neuralstyle.stylize import stylize
 from skimage import img_as_ubyte
 import tensorflow as tf
 
-sess = None
+sess = tf.Session()
 
 def split(img, n):
     sectors = []
@@ -50,10 +50,10 @@ def apply_single_transform(sector,transform, objects):
         BETA2 = 0.999
         EPSILON = 1e-08
         STYLE_SCALE = 1.0
-        ITERATIONS = 20
+        ITERATIONS = 200
         VGG_PATH = 'imagenet-vgg-verydeep-19.mat'
         POOLING = 'max'
-        resize_fac = 0.5
+        resize_fac = 0.3
         prev_shape = sector.shape[:2]
         content_image = cv2.resize(sector,(int(sector.shape[1]*resize_fac),int(sector.shape[0]*resize_fac)))
         style_images = [cv2.imread('videos/1-style.jpg'), ]
@@ -76,7 +76,6 @@ def apply_single_transform(sector,transform, objects):
         checkpoint_iterations = None
         for iteration, image, loss_vals in stylize(
                                             network=VGG_PATH,
-                                            sess = sess,
                                             initial=initial,
                                             initial_noiseblend=initial_noiseblend,
                                             content=content_image,
@@ -146,7 +145,6 @@ if __name__ == "__main__":
     fps = cap.get(cv2.CAP_PROP_FPS)
     print('width = {} height = {} fps = {}'.format(width, height, fps))
     out = cv2.VideoWriter('out/output.avi',fourcc, 23.98, (1280,720))
-    sess = tf.Session()
     while(True):
         os.system('cls' if os.name=='nt' else 'clear')
         ret, frame = cap.read()
