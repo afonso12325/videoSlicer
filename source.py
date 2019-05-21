@@ -55,7 +55,7 @@ def apply_single_transform(sector,transform, objects):
             BETA2 = 0.999
             EPSILON = 1e-08
             STYLE_SCALE = 1.0
-            ITERATIONS = 1000
+            ITERATIONS = 2000
             VGG_PATH = 'imagenet-vgg-verydeep-19.mat'
             POOLING = 'max'
             resize_fac = 1.0
