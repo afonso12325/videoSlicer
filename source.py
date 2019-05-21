@@ -67,6 +67,7 @@ def apply_single_transform(sector,transform, objects):
         pooling = POOLING
         print_iterations= None
         checkpoint_iterations = None
+        print(sector)
         for iteration, image, loss_vals in stylize(
                                             network=VGG_PATH,
                                             initial=initial,
@@ -90,7 +91,7 @@ def apply_single_transform(sector,transform, objects):
                                             checkpoint_iterations=checkpoint_iterations,
         ):
             pass
-        print(image.shape)
+        print(image)
         return image
 
         
@@ -153,7 +154,7 @@ if __name__ == "__main__":
                 if frame_count>=parameter['duration'][0] and frame_count<=parameter['duration'][1]:
                     frame = apply_transforms(frame, keep_orig = parameter['keep_orig'], transforms = parameter['transforms'], objects = parameter['transform_objects'])
                     
-
+            
             out.write(frame)
         
             # cv2.imshow('frame', frame)
