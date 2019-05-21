@@ -169,7 +169,7 @@ def stylize(network, initial, initial_noiseblend, content, styles, preserve_colo
         best = None
         with tf.Session() as sess:
             sess.run(tf.global_variables_initializer())
-            print('Optimization started...')
+            # print('Optimization started...')
             if (print_iterations and print_iterations != 0):
                 print_progress(get_loss_vals(loss_store))
             iteration_times = []
@@ -180,14 +180,14 @@ def stylize(network, initial, initial_noiseblend, content, styles, preserve_colo
                     elapsed = time.time() - start
                     # take average of last couple steps to get time per iteration
                     remaining = np.mean(iteration_times[-10:]) * (iterations - i)
-                    print('Iteration %4d/%4d (%s elapsed, %s remaining)' % (
-                        i + 1,
-                        iterations,
-                        hms(elapsed),
-                        hms(remaining)
-                    ))
+                    # print('Iteration %4d/%4d (%s elapsed, %s remaining)' % (
+                    #     i + 1,
+                    #     iterations,
+                    #     hms(elapsed),
+                    #     hms(remaining)
+                    # ))
                 else:
-                    print('Iteration %4d/%4d' % (i + 1, iterations))
+                    # print('Iteration %4d/%4d' % (i + 1, iterations))
                 train_step.run()
 
                 last_step = (i == iterations - 1)
