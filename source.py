@@ -114,6 +114,8 @@ def apply_single_transform(sector,transform, objects):
             dur = objects['dur']
             if dur>=1.0:
                 dur = 1.0
+            if dur<=0.0:
+                dur = 0.0
             lu_rel = np.array(left_upper)*dur
             rb_rel = 1 - np.array(right_bottom)*dur
             pixels_lu = (lu_rel*np.array([sector.shape[1], sector.shape[0]])).astype(np.uint32)
@@ -148,8 +150,8 @@ if __name__ == "__main__":
     parameters = [
         {'duration':(1800, 1950), 'keep_orig':True, 'transforms':['b&w', 'canny'], 'transform_objects':{}},
         {'duration':(1985, 2200), 'keep_orig':False, 'transforms':['yolo'], 'transform_objects':{"yolo": model}},
-        {'duration':(2264, 2400), 'keep_orig':False, 'transforms':['nst'], 'transform_objects':{"dur": 0}},
-        {'duration':(2527, 2675), 'keep_orig':False, 'transforms':['nst'], 'transform_objects':{"dur": 0}},
+        {'duration':(2264, 2400), 'keep_orig':False, 'transforms':['nst'], 'transform_objects':{"dur": -2}},
+        {'duration':(2527, 2675), 'keep_orig':False, 'transforms':['nst'], 'transform_objects':{"dur": -2}},
         #{'duration':(700, 1200), 'keep_orig':False, 'transforms':['canny', 'const'], 'transform_objects':{}},
     ]
     
