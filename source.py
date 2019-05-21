@@ -8,7 +8,7 @@ from neuralstyle.stylize import stylize
 from skimage import img_as_ubyte
 import tensorflow as tf
 
-sess = tf.Session()
+sess = None
 
 def split(img, n):
     sectors = []
@@ -146,6 +146,7 @@ if __name__ == "__main__":
     fps = cap.get(cv2.CAP_PROP_FPS)
     print('width = {} height = {} fps = {}'.format(width, height, fps))
     out = cv2.VideoWriter('out/output.avi',fourcc, 23.98, (1280,720))
+    sess = tf.Session()
     while(True):
         os.system('cls' if os.name=='nt' else 'clear')
         ret, frame = cap.read()
